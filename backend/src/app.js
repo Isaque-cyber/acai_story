@@ -1,20 +1,18 @@
-import dotenv from 'dotenv'
-dotenv.config({ path: './.env' })
-import express from "express"
-import acaiRoutes from './routes/acaiRoutes.js'
-import cors from "cors"
-import userRoutes from "./routes/userRoutes.js";
+import express from "express";
+import cors from "cors";
+import productRoutes from "./routes/productRoutes.js";
 
-const app = express()
-app.use(cors()) 
-app.use(express.json())
+const app = express();
 
-// rotas
-app.use("/acais", acaiRoutes),
-app.use("/usuarios", userRoutes)
+app.use(cors());
+app.use(express.json());
 
-app.get("/", (req, res) =>{
-    res.send("Bem vindo á API de Açaís")
-})
+app.use("/products", productRoutes);
 
-export default app
+app.get("/", (req, res) => {
+  res.json({
+    message: "API Acai Story funcionando",
+  });
+});
+
+export default app;
