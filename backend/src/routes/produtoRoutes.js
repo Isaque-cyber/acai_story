@@ -1,21 +1,9 @@
-import { Router } from "express";
-import {
-  getAllProducts,
-  addProduct,
-} from "../services/productService.js";
+import React from 'react'
 
-const router = Router();
+function produtoRoutes() {
+  return (
+    <div>produtoRoutes</div>
+  )
+}
 
-router.get("/", (req, res) => {
-  const products = getAllProducts();
-
-  res.json(products);
-});
-
-router.post("/", (req, res) => {
-  const product = addProduct(req.body);
-
-  res.status(201).json(product);
-});
-
-export default router;
+export default produtoRoutes
