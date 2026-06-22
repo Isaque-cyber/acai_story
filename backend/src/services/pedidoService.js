@@ -91,6 +91,8 @@ async function buscarPedidoPorId(id) {
     [id]
   );
 
+
+
   return resultado.rows;
 }
 

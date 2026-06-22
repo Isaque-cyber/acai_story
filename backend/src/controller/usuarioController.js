@@ -1,26 +1,23 @@
 import {
   listarUsuarios,
-  criarUsuario
-} from "../services/usuarioService.js";  
+  criarUsuario,
+  loginUsuario
+} from "../services/usuarioService.js";
 
 async function listar(req, res) {
-    try{
-        const usuarios = await listarUsuarios();
+  try {
+    const usuarios = await listarUsuarios();
 
-        res.json(usuarios);
-    }  catch (erro) {
-        console.error(erro);
-  
-        res.status(500).json({
-            erro: "Erro ao listar usuários",
-        });
-    }
-    
+    res.json(usuarios);
+
+  } catch (erro) {
+    console.error(erro);
+
+    res.status(500).json({
+      erro: "Erro ao listar usuários"
+    });
+  }
 }
-
-
-
-
 
 async function criar(req, res) {
   try {
@@ -33,21 +30,53 @@ async function criar(req, res) {
     );
 
     res.status(201).json(usuario);
-  } catch (erro) {
-  console.error(erro);
 
-  if (erro.message === "Email já cadastrado") {
-    return res.status(400).json({
-      erro: erro.message
+  } catch (erro) {
+    console.error(erro);
+
+    if (erro.message === "Email já cadastrado") {
+      return res.status(400).json({
+        erro: erro.message
+      });
+    }
+
+    res.status(500).json({
+      erro: "Erro ao criar usuário"
     });
   }
+}
 
-  res.status(500).json({
-    erro: "Erro ao criar usuário"
-  });
+async function login(req, res) {
+  try {
+    const { email, senha } = req.body;
+
+    const usuario = await loginUsuario(
+      email,
+      senha
+    );
+
+    if (!usuario) {
+      return res.status(401).json({
+        erro: "Email ou senha inválidos"
+      });
+    }
+
+    res.json({
+      sucesso: true,
+      usuario
+    });
+
+  } catch (erro) {
+    console.error(erro);
+
+    res.status(500).json({
+      erro: "Erro ao realizar login"
+    });
+  }
 }
-}
+
 export {
-    listar,
-     criar
-    };
+  listar,
+  criar,
+  login
+};

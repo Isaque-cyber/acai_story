@@ -31,8 +31,22 @@ async function criarUsuario(nome, email, senha) {
   return resultado.rows[0];
 }
 
+async function loginUsuario(email, senha) {
+  const resultado = await pool.query(
+    `
+    SELECT id, nome, email
+    FROM usuarios
+    WHERE email = $1
+      AND senha = $2
+    `,
+    [email, senha]
+  );
+
+  return resultado.rows[0];
+}
 
 export {
   listarUsuarios,
-  criarUsuario
+  criarUsuario,
+  loginUsuario
 };
