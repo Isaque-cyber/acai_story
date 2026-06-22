@@ -12,7 +12,7 @@ async function listar(req, res) {
         console.error(erro);
   
         res.status(500).json({
-            erro: "Ero ao listar usuários",
+            erro: "Erro ao listar usuários",
         });
     }
     
