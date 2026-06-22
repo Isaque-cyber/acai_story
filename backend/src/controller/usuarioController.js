@@ -34,14 +34,19 @@ async function criar(req, res) {
 
     res.status(201).json(usuario);
   } catch (erro) {
-    console.error(erro);
+  console.error(erro);
 
-    res.status(500).json({
-      erro: "Erro ao criar usuário"
+  if (erro.message === "Email já cadastrado") {
+    return res.status(400).json({
+      erro: erro.message
     });
   }
-}
 
+  res.status(500).json({
+    erro: "Erro ao criar usuário"
+  });
+}
+}
 export {
     listar,
      criar

@@ -2,15 +2,18 @@ import usuarioRoutes from "./routes/usuarioRoutes.js";
 import pool from "./config/db.js"
 import express from "express";
 import cors from "cors";
-/**import produtoRoutes from "./routes/produtoRoutes.js";*/
+import produtoRoutes from "./routes/produtoRoutes.js";
+import pedidoRoutes from "./routes/pedidoRoutes.js"
+
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use("/usuarios", usuarioRoutes);
 
-/*app.use("/produto", produtoRoutes);*/
+app.use("/usuarios", usuarioRoutes);
+app.use("/produtos", produtoRoutes);
+app.use("/pedidos", pedidoRoutes)
 
 app.get("/", (req, res) => {
   res.json({
