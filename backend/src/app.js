@@ -1,3 +1,4 @@
+import usuarioRoutes from "./routes/usuarioRoutes.js";
 import pool from "./config/db.js"
 import express from "express";
 import cors from "cors";
@@ -7,6 +8,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/usuarios", usuarioRoutes);
 
 /*app.use("/produto", produtoRoutes);*/
 
