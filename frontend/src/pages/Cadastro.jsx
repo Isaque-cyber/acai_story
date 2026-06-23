@@ -1,25 +1,41 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 
-export default function Login() {
+export default function Cadastro() {
   const navigate = useNavigate();
 
+  const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
-  function entrar() {
-    if (email && senha) {
-      navigate("/home");
-    } else {
-      alert("Preencha os campos");
+  async function cadastrar() {
+    try {
+      await api.post("/usuarios", {
+        nome,
+        email,
+        senha
+      });
+
+      alert("Cadastro realizado!");
+      navigate("/login");
+
+    } catch (err) {
+      alert("Erro ao cadastrar");
     }
   }
 
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <h1 style={styles.title}>Açaí Story</h1>
-        <p style={styles.subtitle}>Faça login</p>
+        <h1 style={styles.title}>🍧 Açaí Story</h1>
+        <p style={styles.subtitle}>Crie sua conta</p>
+
+        <input
+          style={styles.input}
+          placeholder="Nome"
+          onChange={(e) => setNome(e.target.value)}
+        />
 
         <input
           style={styles.input}
@@ -34,12 +50,12 @@ export default function Login() {
           onChange={(e) => setSenha(e.target.value)}
         />
 
-        <button style={styles.button} onClick={entrar}>
-          Entrar
+        <button style={styles.button} onClick={cadastrar}>
+          Cadastrar
         </button>
 
-        <p style={styles.link} onClick={() => navigate("/")}>
-          Criar conta
+        <p style={styles.link} onClick={() => navigate("/login")}>
+          Já tem conta? Entrar
         </p>
       </div>
     </div>
@@ -94,7 +110,7 @@ const styles = {
     marginTop: "10px",
     border: "none",
     borderRadius: "8px",
-    background: "#7b2cbf",
+    background: "#9d4edd",
     color: "white",
     fontWeight: "bold",
     cursor: "pointer"
