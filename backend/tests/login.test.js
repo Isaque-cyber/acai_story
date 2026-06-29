@@ -1,6 +1,5 @@
 import request from "supertest";
-import app from "../app.js";
-
+import app from "../src/app.js";
 describe("Login", () => {
 
   const email = `login${Date.now()}@gmail.com`;
